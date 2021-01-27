@@ -12,9 +12,13 @@ exports.handler = async (event) => {
 
     const result = await dynamo.get(params).promise();
 
+    const statusCode = 200;
+
+    const body = JSON.stringify(result.Item);
+
     const response = {
-        statusCode: 200,
-        body: JSON.stringify(result.Item),
+        statusCode,
+        body,
     };
     return response;
 };
