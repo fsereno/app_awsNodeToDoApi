@@ -3,19 +3,18 @@ const dynamo = new AWS.DynamoDB.DocumentClient();
 
 exports.handler = async (event) => {
 
-    const username = "in28minutes"; //event.pathParameters.id;
+    const id = event.pathParameters.id;
 
     let params = {
         TableName : 'todo',
-        FilterExpression : 'username = :username',
-        ExpressionAttributeValues : {':username' : username}
+        Key: { id }
     };
 
-    const result = await dynamo.scan(params).promise();
+    const result = await dynamo.get(params).promise();
 
     const statusCode = 200;
 
-    const body = JSON.stringify(result.Items);
+    const body = JSON.stringify(result.Item);
 
     const headers = {
         "Access-Control-Allow-Origin": "*"
