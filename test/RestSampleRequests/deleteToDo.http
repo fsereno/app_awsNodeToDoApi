@@ -1,0 +1,2 @@
+DELETE https://kxfdjzy5q7.execute-api.eu-west-2.amazonaws.com/Dev/todos/124  HTTP/1.1
+content-type: application/json
