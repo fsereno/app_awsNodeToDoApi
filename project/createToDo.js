@@ -3,11 +3,18 @@ const dynamo = new AWS.DynamoDB.DocumentClient();
 
 exports.handler = async (event) => {
 
-    const body = JSON.parse(event.body);
+    const item = JSON.parse(event.body);
+
+    if (!item.id || item.id === "-1") {
+
+        const id =  Math.random() * Math.pow(10,16);
+
+        item.id = id.toString();
+    }
 
     let params = {
         TableName : 'todo',
-        Item: body
+        Item: item
     };
 
     await dynamo.put(params).promise();

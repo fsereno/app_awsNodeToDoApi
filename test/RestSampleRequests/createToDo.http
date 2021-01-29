@@ -1,0 +1,9 @@
+POST https://kxfdjzy5q7.execute-api.eu-west-2.amazonaws.com/Dev/todos  HTTP/1.1
+content-type: application/json
+
+{
+  "description": "Test from REST Client",
+  "done": false,
+  "targetDate": "2030-07-15T05:46:47.649+0000",
+  "username": "in28minutes"
+}
