@@ -1,9 +1,26 @@
 const AWS = require("aws-sdk");
 const dynamo = new AWS.DynamoDB.DocumentClient();
+const cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
 
 exports.handler = async (event) => {
 
-    const username = "in28minutes"; //event.pathParameters.id;
+    const accessToken = event.headers.access;
+
+    let username = "";
+
+    if (accessToken) {
+
+        const identity = {
+            AccessToken: accessToken
+        };
+
+        let user = await cognitoidentityserviceprovider.getUser(identity).promise();
+
+        if (user) {
+            username = user.Username;
+        }
+
+    }
 
     let params = {
         TableName : 'todo',
