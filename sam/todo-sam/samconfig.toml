@@ -1,0 +1,10 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "todo-sam"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1uxj9y64bll84"
+s3_prefix = "todo-sam"
+region = "eu-west-2"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
