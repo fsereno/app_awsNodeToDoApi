@@ -14,8 +14,8 @@ Resources:
   HelloWorldFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      CodeUri: hello-world/
-      Handler: app.lambdaHandler
+      CodeUri: todo/
+      Handler: helloworld.lambdaHandler
       Runtime: nodejs14.x
       Events:
         HelloWorld:
@@ -23,6 +23,21 @@ Resources:
           Properties:
             Path: /hello
             Method: get
+  ListToDosFunction:
+      Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+      Properties:
+        CodeUri: todo/
+        Handler: listToDos.handler
+        Runtime: nodejs14.x
+        Policies:
+          - DynamoDBCrudPolicy:
+              TableName: todo
+        Events:
+          HelloWorld:
+            Type: HttpApi # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+            Properties:
+              Path: /todos
+              Method: get
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function

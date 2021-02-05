@@ -13,7 +13,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: HelloWorldFunction
-      Handler: app.lambdaHandler
+      Handler: helloworld.lambdaHandler
       Runtime: nodejs14.x
       Events:
         HelloWorld:
@@ -21,8 +21,23 @@ Resources:
           Properties:
             Path: /hello
             Method: get
+  ListToDosFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ListToDosFunction
+      Handler: listToDos.handler
+      Runtime: nodejs14.x
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: todo
+      Events:
+        HelloWorld:
+          Type: HttpApi
+          Properties:
+            Path: /todos
+            Method: get
 Outputs:
   HelloWorldApi:
     Description: API Gateway endpoint URL for Prod stage for Hello World function
     Value:
-      Fn::Sub: https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/hello/
+      Fn::Sub: https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/hello
