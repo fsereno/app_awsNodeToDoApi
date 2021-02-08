@@ -15,6 +15,13 @@ Globals:
       Variables:
           TODO_TABLE: todo
   HttpApi:
+    CorsConfiguration:
+      AllowOrigins:
+        - "*"
+      AllowHeaders:
+        - "*"
+      AllowMethods:
+        - "*"
     Auth:
       Authorizers:
         OAuth2Authorizer:
