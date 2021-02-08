@@ -24,7 +24,7 @@ exports.handler = async (event) => {
     }
 
     let params = {
-        TableName : 'todo',
+        TableName : process.env.TODO_TABLE,
         FilterExpression : 'username = :username',
         ExpressionAttributeValues : {':username' : username}
     };

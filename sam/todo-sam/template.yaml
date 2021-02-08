@@ -4,19 +4,24 @@ Description: >
   todo-sam
 
   Sample SAM Template for todo-sam
-  
+
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
     Timeout: 3
+    Runtime: nodejs14.x
+    CodeUri: todo/
+    Environment:
+      Variables:
+          TODO_TABLE: todo
 
 Resources:
   HelloWorldFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      CodeUri: todo/
+      #CodeUri: todo/
       Handler: helloworld.lambdaHandler
-      Runtime: nodejs14.x
+      #Runtime: nodejs14.x
       Events:
         HelloWorld:
           Type: HttpApi # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
@@ -26,9 +31,9 @@ Resources:
   ListToDosFunction:
       Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
       Properties:
-        CodeUri: todo/
+        #CodeUri: todo/
         Handler: listToDos.handler
-        Runtime: nodejs14.x
+        #Runtime: nodejs14.x
         Policies:
           - DynamoDBCrudPolicy:
               TableName: todo
@@ -45,11 +50,4 @@ Outputs:
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
   HelloWorldApi:
     Description: "API Gateway endpoint URL for Prod stage for Hello World function"
-    #Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
     Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/hello"
-  #HelloWorldFunction:
-  #  Description: "Hello World Lambda Function ARN"
-  #HelloWorldFunctionIamRole:
-  #  Value: !GetAtt HelloWorldFunction.Arn
-  #  Description: "Implicit IAM Role created for Hello World function"
-  #  Value: !GetAtt HelloWorldFunctionRole.Arn
