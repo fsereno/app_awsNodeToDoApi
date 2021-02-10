@@ -36,7 +36,7 @@ Resources:
     Properties:
       Handler: helloworld.lambdaHandler
       Events:
-        HelloWorld:
+        Method:
           Type: HttpApi
           Properties:
             Path: /hello
@@ -50,7 +50,7 @@ Resources:
       - DynamoDBCrudPolicy:
           TableName: todo
       Events:
-        ListToDos:
+        Method:
           Type: HttpApi
           Properties:
             Path: /todos
@@ -64,7 +64,7 @@ Resources:
       - DynamoDBCrudPolicy:
           TableName: todo
       Events:
-        GetToDo:
+        Method:
           Type: HttpApi
           Properties:
             Path: /todos/{id}
@@ -78,12 +78,40 @@ Resources:
       - DynamoDBCrudPolicy:
           TableName: todo
       Events:
-        UpdateToDo:
+        Method:
           Type: HttpApi
           Properties:
             Path: /todos/{id}
             Method: put
       CodeUri: UpdateToDoFunction
+  CreateToDoFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: createToDo.handler
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: todo
+      Events:
+        Method:
+          Type: HttpApi
+          Properties:
+            Path: /todos/{id}
+            Method: post
+      CodeUri: CreateToDoFunction
+  DeleteToDoFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: deleteToDo.handler
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: todo
+      Events:
+        Method:
+          Type: HttpApi
+          Properties:
+            Path: /todos/{id}
+            Method: delete
+      CodeUri: DeleteToDoFunction
 Outputs:
   HelloWorldApi:
     Description: API Gateway endpoint URL for Prod stage for Hello World function

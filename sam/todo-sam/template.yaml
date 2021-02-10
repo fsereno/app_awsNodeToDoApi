@@ -38,7 +38,7 @@ Resources:
     Properties:
       Handler: helloworld.lambdaHandler
       Events:
-        HelloWorld:
+        Method:
           Type: HttpApi # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /hello
@@ -51,7 +51,7 @@ Resources:
           - DynamoDBCrudPolicy:
               TableName: todo
         Events:
-          ListToDos:
+          Method:
             Type: HttpApi # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
             Properties:
               Path: /todos
@@ -64,7 +64,7 @@ Resources:
           - DynamoDBCrudPolicy:
               TableName: todo
         Events:
-          GetToDo:
+          Method:
             Type: HttpApi # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
             Properties:
               Path: /todos/{id}
@@ -77,11 +77,37 @@ Resources:
           - DynamoDBCrudPolicy:
               TableName: todo
         Events:
-          UpdateToDo:
+          Method:
             Type: HttpApi # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
             Properties:
               Path: /todos/{id}
               Method: put
+  CreateToDoFunction:
+      Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+      Properties:
+        Handler: createToDo.handler
+        Policies:
+          - DynamoDBCrudPolicy:
+              TableName: todo
+        Events:
+          Method:
+            Type: HttpApi # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+            Properties:
+              Path: /todos/{id}
+              Method: post
+  DeleteToDoFunction:
+      Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+      Properties:
+        Handler: deleteToDo.handler
+        Policies:
+          - DynamoDBCrudPolicy:
+              TableName: todo
+        Events:
+          Method:
+            Type: HttpApi # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+            Properties:
+              Path: /todos/{id}
+              Method: delete
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function

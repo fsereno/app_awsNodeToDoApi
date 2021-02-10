@@ -6,6 +6,6 @@ codeuri = "todo/"
 runtime = "nodejs14.x"
 source_md5 = ""
 packagetype = "Zip"
-functions = ["HelloWorldFunction", "ListToDosFunction", "GetToDoFunction", "UpdateToDoFunction"]
+functions = ["HelloWorldFunction", "ListToDosFunction", "GetToDoFunction", "UpdateToDoFunction", "CreateToDoFunction", "DeleteToDoFunction"]
 
 [layer_build_definitions]
