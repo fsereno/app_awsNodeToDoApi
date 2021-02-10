@@ -70,6 +70,20 @@ Resources:
             Path: /todos/{id}
             Method: get
       CodeUri: GetToDoFunction
+  UpdateToDoFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: updateToDo.handler
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: todo
+      Events:
+        UpdateToDo:
+          Type: HttpApi
+          Properties:
+            Path: /todos/{id}
+            Method: put
+      CodeUri: UpdateToDoFunction
 Outputs:
   HelloWorldApi:
     Description: API Gateway endpoint URL for Prod stage for Hello World function

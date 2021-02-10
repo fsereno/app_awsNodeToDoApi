@@ -69,6 +69,19 @@ Resources:
             Properties:
               Path: /todos/{id}
               Method: get
+  UpdateToDoFunction:
+      Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+      Properties:
+        Handler: updateToDo.handler
+        Policies:
+          - DynamoDBCrudPolicy:
+              TableName: todo
+        Events:
+          UpdateToDo:
+            Type: HttpApi # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+            Properties:
+              Path: /todos/{id}
+              Method: put
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
