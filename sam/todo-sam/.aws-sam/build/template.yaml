@@ -100,7 +100,7 @@ Resources:
         Method:
           Type: HttpApi
           Properties:
-            Path: /todos/{id}
+            Path: /todos
             Method: post
       CodeUri: CreateToDoFunction
   DeleteToDoFunction:
