@@ -13,7 +13,7 @@ Globals:
     CodeUri: todo/
     Environment:
       Variables:
-          TODO_TABLE: todo
+          TODO_TABLE: !Ref ToDoTable
   HttpApi:
     CorsConfiguration:
       AllowOrigins:
@@ -49,7 +49,7 @@ Resources:
         Handler: listToDos.handler
         Policies:
           - DynamoDBCrudPolicy:
-              TableName: todo
+              TableName: !Ref ToDoTable
         Events:
           Method:
             Type: HttpApi # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
@@ -62,7 +62,7 @@ Resources:
         Handler: getToDo.handler
         Policies:
           - DynamoDBCrudPolicy:
-              TableName: todo
+              TableName: !Ref ToDoTable
         Events:
           Method:
             Type: HttpApi # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
@@ -75,7 +75,7 @@ Resources:
         Handler: updateToDo.handler
         Policies:
           - DynamoDBCrudPolicy:
-              TableName: todo
+              TableName: !Ref ToDoTable
         Events:
           Method:
             Type: HttpApi # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
@@ -88,7 +88,7 @@ Resources:
         Handler: createToDo.handler
         Policies:
           - DynamoDBCrudPolicy:
-              TableName: todo
+              TableName: !Ref ToDoTable
         Events:
           Method:
             Type: HttpApi # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
@@ -101,13 +101,19 @@ Resources:
         Handler: deleteToDo.handler
         Policies:
           - DynamoDBCrudPolicy:
-              TableName: todo
+              TableName: !Ref ToDoTable
         Events:
           Method:
             Type: HttpApi # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
             Properties:
               Path: /todos/{id}
               Method: delete
+  ToDoTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: id
+        Type: String
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
