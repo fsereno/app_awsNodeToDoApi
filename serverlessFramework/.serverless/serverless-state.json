@@ -8,7 +8,7 @@
       "name": "aws",
       "runtime": "nodejs12.x",
       "lambdaHashingVersion": "20201221",
-      "region": "us-east-1",
+      "region": "eu-west-2",
       "stage": "dev",
       "variableSyntax": "\\${([^{}:]+?(?:\\(|:)(?:[^:{}][^{}]*?)?)}",
       "versionFunctions": true,
@@ -175,7 +175,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/todoserverlessframework/dev/1614870296321-2021-03-04T15:04:56.321Z/todoserverlessframework.zip"
+                "S3Key": "serverless/todoserverlessframework/dev/1614871020774-2021-03-04T15:17:00.774Z/todoserverlessframework.zip"
               },
               "Handler": "handler.hello",
               "Runtime": "nodejs12.x",
@@ -464,7 +464,7 @@
     "artifact": "/Users/fabiosereno/sites/portfolio.aws.lambda/app_awsNodeToDoApi/serverlessFramework/.serverless/todoserverlessframework.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/todoserverlessframework/dev/1614870296321-2021-03-04T15:04:56.321Z",
+    "artifactDirectoryName": "serverless/todoserverlessframework/dev/1614871020774-2021-03-04T15:17:00.774Z",
     "artifact": "todoserverlessframework.zip"
   }
 }
