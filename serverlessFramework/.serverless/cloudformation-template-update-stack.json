@@ -161,7 +161,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/todoserverlessframework/dev/1614871020774-2021-03-04T15:17:00.774Z/todoserverlessframework.zip"
+          "S3Key": "serverless/todoserverlessframework/dev/1615479364608-2021-03-11T16:16:04.608Z/todoserverlessframework.zip"
         },
         "Handler": "handler.hello",
         "Runtime": "nodejs12.x",
@@ -179,14 +179,14 @@
         "HelloLogGroup"
       ]
     },
-    "HelloLambdaVersionk6fAdP4qVchrH78HbRAvKlyHKqlenYZ6jGrA0e2rSM": {
+    "HelloLambdaVersionlMleLHlO8Fr7wMUWIqjFcFidBuWPJBtOnCI6Kgbk": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "HelloLambdaFunction"
         },
-        "CodeSha256": "N2T+ufoquBzhkaDxKjrhdTQ+IHhfQcb5RZdGTSBQ8j0="
+        "CodeSha256": "xiBD4l39tMfT3a612hIdty8bAFWzaWbD7bs7B1IduzU="
       }
     },
     "HttpApi": {
@@ -294,7 +294,7 @@
     "HelloLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "HelloLambdaVersionk6fAdP4qVchrH78HbRAvKlyHKqlenYZ6jGrA0e2rSM"
+        "Ref": "HelloLambdaVersionlMleLHlO8Fr7wMUWIqjFcFidBuWPJBtOnCI6Kgbk"
       }
     },
     "HttpApiId": {
