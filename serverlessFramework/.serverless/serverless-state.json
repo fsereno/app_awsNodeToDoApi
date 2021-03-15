@@ -8,6 +8,21 @@
       "name": "aws",
       "runtime": "nodejs12.x",
       "lambdaHashingVersion": "20201221",
+      "httpApi": {
+        "payload": "2.0"
+      },
+      "environment": {
+        "TODO_TABLE": "todo"
+      },
+      "iamRoleStatements": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "dynamodb:*"
+          ],
+          "Resource": "*"
+        }
+      ],
       "region": "eu-west-2",
       "stage": "dev",
       "variableSyntax": "\\${([^{}:]+?(?:\\(|:)(?:[^:{}][^{}]*?)?)}",
@@ -91,6 +106,12 @@
               "LogGroupName": "/aws/lambda/todoserverlessframework-dev-hello"
             }
           },
+          "ListToDosLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/todoserverlessframework-dev-listToDos"
+            }
+          },
           "IamRoleLambdaExecution": {
             "Type": "AWS::IAM::Role",
             "Properties": {
@@ -147,6 +168,9 @@
                             "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/todoserverlessframework-dev*:*:*"
                           }
                         ]
+                      },
+                      {
+                        "$ref": "$[\"service\"][\"provider\"][\"iamRoleStatements\"][0]"
                       }
                     ]
                   }
@@ -175,13 +199,18 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/todoserverlessframework/dev/1615479364608-2021-03-11T16:16:04.608Z/todoserverlessframework.zip"
+                "S3Key": "serverless/todoserverlessframework/dev/1615816781170-2021-03-15T13:59:41.170Z/todoserverlessframework.zip"
               },
               "Handler": "handler.hello",
               "Runtime": "nodejs12.x",
               "FunctionName": "todoserverlessframework-dev-hello",
               "MemorySize": 1024,
               "Timeout": 6,
+              "Environment": {
+                "Variables": {
+                  "TODO_TABLE": "todo"
+                }
+              },
               "Role": {
                 "Fn::GetAtt": [
                   "IamRoleLambdaExecution",
@@ -193,14 +222,54 @@
               "HelloLogGroup"
             ]
           },
-          "HelloLambdaVersionlMleLHlO8Fr7wMUWIqjFcFidBuWPJBtOnCI6Kgbk": {
+          "ListToDosLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "S3Key": "serverless/todoserverlessframework/dev/1615816781170-2021-03-15T13:59:41.170Z/todoserverlessframework.zip"
+              },
+              "Handler": "todo/listToDos.handler",
+              "Runtime": "nodejs12.x",
+              "FunctionName": "todoserverlessframework-dev-listToDos",
+              "MemorySize": 1024,
+              "Timeout": 6,
+              "Environment": {
+                "Variables": {
+                  "TODO_TABLE": "todo"
+                }
+              },
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              }
+            },
+            "DependsOn": [
+              "ListToDosLogGroup"
+            ]
+          },
+          "HelloLambdaVersiondrBgJkEZzZqJ1lbUVpvflPJfk9TIhrtWGye7DkXlcY": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "HelloLambdaFunction"
               },
-              "CodeSha256": "xiBD4l39tMfT3a612hIdty8bAFWzaWbD7bs7B1IduzU="
+              "CodeSha256": "yjdAgkz81wJaFiS6WSmmdF/xFmaS5vv0ukQJh33j/xs="
+            }
+          },
+          "ListToDosLambdaVersion9WpeEChGQYRIlBwRHqvU7qNl7Tb0KfNhs5ve6rtsk0": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "ListToDosLambdaFunction"
+              },
+              "CodeSha256": "yjdAgkz81wJaFiS6WSmmdF/xFmaS5vv0ukQJh33j/xs="
             }
           },
           "HttpApi": {
@@ -294,6 +363,78 @@
               }
             },
             "DependsOn": "HttpApiIntegrationHello"
+          },
+          "ListToDosLambdaPermissionHttpApi": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "ListToDosLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "HttpApi"
+                    },
+                    "/*"
+                  ]
+                ]
+              }
+            }
+          },
+          "HttpApiIntegrationListToDos": {
+            "Type": "AWS::ApiGatewayV2::Integration",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "IntegrationType": "AWS_PROXY",
+              "IntegrationUri": {
+                "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"ListToDosLambdaPermissionHttpApi\"][\"Properties\"][\"FunctionName\"]"
+              },
+              "PayloadFormatVersion": "2.0",
+              "TimeoutInMillis": 6500
+            }
+          },
+          "HttpApiRouteGetTodos": {
+            "Type": "AWS::ApiGatewayV2::Route",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "RouteKey": "GET /todos",
+              "Target": {
+                "Fn::Join": [
+                  "/",
+                  [
+                    "integrations",
+                    {
+                      "Ref": "HttpApiIntegrationListToDos"
+                    }
+                  ]
+                ]
+              }
+            },
+            "DependsOn": "HttpApiIntegrationListToDos"
           }
         },
         "Outputs": {
@@ -305,7 +446,13 @@
           "HelloLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "HelloLambdaVersionlMleLHlO8Fr7wMUWIqjFcFidBuWPJBtOnCI6Kgbk"
+              "Ref": "HelloLambdaVersiondrBgJkEZzZqJ1lbUVpvflPJfk9TIhrtWGye7DkXlcY"
+            }
+          },
+          "ListToDosLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "ListToDosLambdaVersion9WpeEChGQYRIlBwRHqvU7qNl7Tb0KfNhs5ve6rtsk0"
             }
           },
           "HttpApiId": {
@@ -442,7 +589,27 @@
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "HelloLambdaVersionlMleLHlO8Fr7wMUWIqjFcFidBuWPJBtOnCI6Kgbk"
+        "versionLogicalId": "HelloLambdaVersiondrBgJkEZzZqJ1lbUVpvflPJfk9TIhrtWGye7DkXlcY"
+      },
+      "listToDos": {
+        "handler": "todo/listToDos.handler",
+        "events": [
+          {
+            "httpApi": {
+              "path": "/todos",
+              "method": "get"
+            },
+            "resolvedMethod": "GET",
+            "resolvedPath": "/todos"
+          }
+        ],
+        "name": "todoserverlessframework-dev-listToDos",
+        "package": {},
+        "memory": 1024,
+        "timeout": 6,
+        "runtime": "nodejs12.x",
+        "vpc": {},
+        "versionLogicalId": "ListToDosLambdaVersion9WpeEChGQYRIlBwRHqvU7qNl7Tb0KfNhs5ve6rtsk0"
       }
     },
     "configValidationMode": "warn",
@@ -464,7 +631,7 @@
     "artifact": "/Users/fabiosereno/sites/portfolio.aws.lambda/app_awsNodeToDoApi/serverlessFramework/.serverless/todoserverlessframework.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/todoserverlessframework/dev/1615479364608-2021-03-11T16:16:04.608Z",
+    "artifactDirectoryName": "serverless/todoserverlessframework/dev/1615816781170-2021-03-15T13:59:41.170Z",
     "artifact": "todoserverlessframework.zip"
   }
 }
