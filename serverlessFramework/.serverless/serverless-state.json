@@ -7,6 +7,7 @@
     "provider": {
       "name": "aws",
       "runtime": "nodejs12.x",
+      "region": "eu-west-2",
       "lambdaHashingVersion": "20201221",
       "httpApi": {
         "payload": "2.0",
@@ -50,7 +51,6 @@
           }
         }
       ],
-      "region": "eu-west-2",
       "stage": "dev",
       "variableSyntax": "\\${([^{}:]+?(?:\\(|:)(?:[^:{}][^{}]*?)?)}",
       "versionFunctions": true,
@@ -250,7 +250,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/todoserverlessframework/dev/1615844998481-2021-03-15T21:49:58.481Z/todoserverlessframework.zip"
+                "S3Key": "serverless/todoserverlessframework/dev/1615845730566-2021-03-15T22:02:10.566Z/todoserverlessframework.zip"
               },
               "Handler": "handler.hello",
               "Runtime": "nodejs12.x",
@@ -280,7 +280,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/todoserverlessframework/dev/1615844998481-2021-03-15T21:49:58.481Z/todoserverlessframework.zip"
+                "S3Key": "serverless/todoserverlessframework/dev/1615845730566-2021-03-15T22:02:10.566Z/todoserverlessframework.zip"
               },
               "Handler": "todo/listToDos.handler",
               "Runtime": "nodejs12.x",
@@ -310,7 +310,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/todoserverlessframework/dev/1615844998481-2021-03-15T21:49:58.481Z/todoserverlessframework.zip"
+                "S3Key": "serverless/todoserverlessframework/dev/1615845730566-2021-03-15T22:02:10.566Z/todoserverlessframework.zip"
               },
               "Handler": "todo/getToDo.handler",
               "Runtime": "nodejs12.x",
@@ -340,7 +340,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/todoserverlessframework/dev/1615844998481-2021-03-15T21:49:58.481Z/todoserverlessframework.zip"
+                "S3Key": "serverless/todoserverlessframework/dev/1615845730566-2021-03-15T22:02:10.566Z/todoserverlessframework.zip"
               },
               "Handler": "todo/createToDo.handler",
               "Runtime": "nodejs12.x",
@@ -370,7 +370,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/todoserverlessframework/dev/1615844998481-2021-03-15T21:49:58.481Z/todoserverlessframework.zip"
+                "S3Key": "serverless/todoserverlessframework/dev/1615845730566-2021-03-15T22:02:10.566Z/todoserverlessframework.zip"
               },
               "Handler": "todo/deleteToDo.handler",
               "Runtime": "nodejs12.x",
@@ -400,7 +400,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/todoserverlessframework/dev/1615844998481-2021-03-15T21:49:58.481Z/todoserverlessframework.zip"
+                "S3Key": "serverless/todoserverlessframework/dev/1615845730566-2021-03-15T22:02:10.566Z/todoserverlessframework.zip"
               },
               "Handler": "todo/updateToDo.handler",
               "Runtime": "nodejs12.x",
@@ -1357,7 +1357,7 @@
     "artifact": "/Users/fabiosereno/sites/portfolio.aws.lambda/app_awsNodeToDoApi/serverlessFramework/.serverless/todoserverlessframework.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/todoserverlessframework/dev/1615844998481-2021-03-15T21:49:58.481Z",
+    "artifactDirectoryName": "serverless/todoserverlessframework/dev/1615845730566-2021-03-15T22:02:10.566Z",
     "artifact": "todoserverlessframework.zip"
   }
 }
