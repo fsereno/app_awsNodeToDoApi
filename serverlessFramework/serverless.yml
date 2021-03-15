@@ -26,6 +26,17 @@ provider:
   lambdaHashingVersion: 20201221
   httpApi:
     payload: '2.0'
+    cors:
+      allowedOrigins:
+        - '*'
+      allowedHeaders:
+        - '*'
+      allowedMethods:
+        - 'OPTIONS'
+        - 'GET'
+        - 'POST'
+        - 'DELETE'
+        - 'PUT'
     authorizers:
       ToDoJwtAuthorizer:
         identitySource: $request.header.Authorization
@@ -90,6 +101,38 @@ functions:
       - httpApi:
           path: /todos
           method: get
+          authorizer:
+            name: ToDoJwtAuthorizer
+  getToDo:
+    handler: todo/getToDo.handler
+    events:
+      - httpApi:
+          path: /todos/{id}
+          method: get
+          authorizer:
+            name: ToDoJwtAuthorizer
+  createToDo:
+    handler: todo/createToDo.handler
+    events:
+      - httpApi:
+          path: /todos
+          method: post
+          authorizer:
+            name: ToDoJwtAuthorizer
+  deleteToDo:
+    handler: todo/deleteToDo.handler
+    events:
+      - httpApi:
+          path: /todos/{id}
+          method: delete
+          authorizer:
+            name: ToDoJwtAuthorizer
+  updateToDo:
+    handler: todo/updateToDo.handler
+    events:
+      - httpApi:
+          path: /todos/{id}
+          method: put
           authorizer:
             name: ToDoJwtAuthorizer
 resources:
