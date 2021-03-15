@@ -27,12 +27,16 @@ provider:
   httpApi:
     payload: '2.0'
   environment:
-    TODO_TABLE: todo
+    TODO_TABLE: todo-serverless
   iamRoleStatements:
     - Effect: "Allow"
       Action:
         - "dynamodb:*"
-      Resource: "*"
+      Resource:
+        Fn::GetAtt:
+          - ToDoTable
+          - Arn
+
 
 # you can overwrite defaults here
 #  stage: dev
@@ -80,6 +84,27 @@ functions:
       - httpApi:
           path: /todos
           method: get
+resources:
+  Resources:
+    ToDoTable:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain
+      Properties:
+        TableName: ${self:provider.environment.TODO_TABLE}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+
+
+
+
+
 #      - websocket: $connect
 #      - s3: ${env:BUCKET}
 #      - schedule: rate(10 minutes)

@@ -12,7 +12,7 @@
         "payload": "2.0"
       },
       "environment": {
-        "TODO_TABLE": "todo"
+        "TODO_TABLE": "todo-serverless"
       },
       "iamRoleStatements": [
         {
@@ -20,7 +20,12 @@
           "Action": [
             "dynamodb:*"
           ],
-          "Resource": "*"
+          "Resource": {
+            "Fn::GetAtt": [
+              "ToDoTable",
+              "Arn"
+            ]
+          }
         }
       ],
       "region": "eu-west-2",
@@ -199,7 +204,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/todoserverlessframework/dev/1615816781170-2021-03-15T13:59:41.170Z/todoserverlessframework.zip"
+                "S3Key": "serverless/todoserverlessframework/dev/1615820573942-2021-03-15T15:02:53.942Z/todoserverlessframework.zip"
               },
               "Handler": "handler.hello",
               "Runtime": "nodejs12.x",
@@ -208,7 +213,7 @@
               "Timeout": 6,
               "Environment": {
                 "Variables": {
-                  "TODO_TABLE": "todo"
+                  "TODO_TABLE": "todo-serverless"
                 }
               },
               "Role": {
@@ -229,7 +234,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/todoserverlessframework/dev/1615816781170-2021-03-15T13:59:41.170Z/todoserverlessframework.zip"
+                "S3Key": "serverless/todoserverlessframework/dev/1615820573942-2021-03-15T15:02:53.942Z/todoserverlessframework.zip"
               },
               "Handler": "todo/listToDos.handler",
               "Runtime": "nodejs12.x",
@@ -238,7 +243,7 @@
               "Timeout": 6,
               "Environment": {
                 "Variables": {
-                  "TODO_TABLE": "todo"
+                  "TODO_TABLE": "todo-serverless"
                 }
               },
               "Role": {
@@ -252,7 +257,7 @@
               "ListToDosLogGroup"
             ]
           },
-          "HelloLambdaVersiondrBgJkEZzZqJ1lbUVpvflPJfk9TIhrtWGye7DkXlcY": {
+          "HelloLambdaVersiono6tib3zamdRxtaMHsCGAwYZmz4QM5S2fMOOjJ3Xjw": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
@@ -262,7 +267,7 @@
               "CodeSha256": "yjdAgkz81wJaFiS6WSmmdF/xFmaS5vv0ukQJh33j/xs="
             }
           },
-          "ListToDosLambdaVersion9WpeEChGQYRIlBwRHqvU7qNl7Tb0KfNhs5ve6rtsk0": {
+          "ListToDosLambdaVersionX8Wcqo1Hy9003CWeWDG8R2nN9wXoa0cHnTtkmAR3w": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
@@ -435,6 +440,29 @@
               }
             },
             "DependsOn": "HttpApiIntegrationListToDos"
+          },
+          "ToDoTable": {
+            "Type": "AWS::DynamoDB::Table",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "TableName": "todo-serverless",
+              "AttributeDefinitions": [
+                {
+                  "AttributeName": "id",
+                  "AttributeType": "S"
+                }
+              ],
+              "KeySchema": [
+                {
+                  "AttributeName": "id",
+                  "KeyType": "HASH"
+                }
+              ],
+              "ProvisionedThroughput": {
+                "ReadCapacityUnits": 1,
+                "WriteCapacityUnits": 1
+              }
+            }
           }
         },
         "Outputs": {
@@ -446,13 +474,13 @@
           "HelloLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "HelloLambdaVersiondrBgJkEZzZqJ1lbUVpvflPJfk9TIhrtWGye7DkXlcY"
+              "Ref": "HelloLambdaVersiono6tib3zamdRxtaMHsCGAwYZmz4QM5S2fMOOjJ3Xjw"
             }
           },
           "ListToDosLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ListToDosLambdaVersion9WpeEChGQYRIlBwRHqvU7qNl7Tb0KfNhs5ve6rtsk0"
+              "Ref": "ListToDosLambdaVersionX8Wcqo1Hy9003CWeWDG8R2nN9wXoa0cHnTtkmAR3w"
             }
           },
           "HttpApiId": {
@@ -589,7 +617,7 @@
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "HelloLambdaVersiondrBgJkEZzZqJ1lbUVpvflPJfk9TIhrtWGye7DkXlcY"
+        "versionLogicalId": "HelloLambdaVersiono6tib3zamdRxtaMHsCGAwYZmz4QM5S2fMOOjJ3Xjw"
       },
       "listToDos": {
         "handler": "todo/listToDos.handler",
@@ -609,8 +637,36 @@
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "ListToDosLambdaVersion9WpeEChGQYRIlBwRHqvU7qNl7Tb0KfNhs5ve6rtsk0"
+        "versionLogicalId": "ListToDosLambdaVersionX8Wcqo1Hy9003CWeWDG8R2nN9wXoa0cHnTtkmAR3w"
       }
+    },
+    "resources": {
+      "Resources": {
+        "ToDoTable": {
+          "Type": "AWS::DynamoDB::Table",
+          "DeletionPolicy": "Retain",
+          "Properties": {
+            "TableName": "todo-serverless",
+            "AttributeDefinitions": [
+              {
+                "AttributeName": "id",
+                "AttributeType": "S"
+              }
+            ],
+            "KeySchema": [
+              {
+                "AttributeName": "id",
+                "KeyType": "HASH"
+              }
+            ],
+            "ProvisionedThroughput": {
+              "ReadCapacityUnits": 1,
+              "WriteCapacityUnits": 1
+            }
+          }
+        }
+      },
+      "Outputs": {}
     },
     "configValidationMode": "warn",
     "serviceFilename": "serverless.yml",
@@ -625,13 +681,16 @@
       },
       "functions": {
         "$ref": "$[\"service\"][\"functions\"]"
+      },
+      "resources": {
+        "$ref": "$[\"service\"][\"resources\"]"
       }
     },
     "isDashboardMonitoringPreconfigured": false,
     "artifact": "/Users/fabiosereno/sites/portfolio.aws.lambda/app_awsNodeToDoApi/serverlessFramework/.serverless/todoserverlessframework.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/todoserverlessframework/dev/1615816781170-2021-03-15T13:59:41.170Z",
+    "artifactDirectoryName": "serverless/todoserverlessframework/dev/1615820573942-2021-03-15T15:02:53.942Z",
     "artifact": "todoserverlessframework.zip"
   }
 }
