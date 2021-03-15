@@ -26,6 +26,12 @@ provider:
   lambdaHashingVersion: 20201221
   httpApi:
     payload: '2.0'
+    authorizers:
+      ToDoJwtAuthorizer:
+        identitySource: $request.header.Authorization
+        issuerUrl: https://cognito-idp.eu-west-2.amazonaws.com/eu-west-2_s4syVYS6n
+        audience:
+          - 60jvm1avgd6t55k4uc15dgu6iq
   environment:
     TODO_TABLE: todo-serverless
   iamRoleStatements:
@@ -84,6 +90,8 @@ functions:
       - httpApi:
           path: /todos
           method: get
+          authorizer:
+            name: ToDoJwtAuthorizer
 resources:
   Resources:
     ToDoTable:

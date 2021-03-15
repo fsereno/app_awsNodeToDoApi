@@ -179,7 +179,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/todoserverlessframework/dev/1615820573942-2021-03-15T15:02:53.942Z/todoserverlessframework.zip"
+          "S3Key": "serverless/todoserverlessframework/dev/1615841499326-2021-03-15T20:51:39.326Z/todoserverlessframework.zip"
         },
         "Handler": "handler.hello",
         "Runtime": "nodejs12.x",
@@ -209,7 +209,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/todoserverlessframework/dev/1615820573942-2021-03-15T15:02:53.942Z/todoserverlessframework.zip"
+          "S3Key": "serverless/todoserverlessframework/dev/1615841499326-2021-03-15T20:51:39.326Z/todoserverlessframework.zip"
         },
         "Handler": "todo/listToDos.handler",
         "Runtime": "nodejs12.x",
@@ -270,6 +270,25 @@
         "DefaultRouteSettings": {
           "DetailedMetricsEnabled": false
         }
+      }
+    },
+    "HttpApiAuthorizerToDoJwtAuthorizer": {
+      "Type": "AWS::ApiGatewayV2::Authorizer",
+      "Properties": {
+        "ApiId": {
+          "Ref": "HttpApi"
+        },
+        "AuthorizerType": "JWT",
+        "IdentitySource": [
+          "$request.header.Authorization"
+        ],
+        "JwtConfiguration": {
+          "Audience": [
+            "60jvm1avgd6t55k4uc15dgu6iq"
+          ],
+          "Issuer": "https://cognito-idp.eu-west-2.amazonaws.com/eu-west-2_s4syVYS6n"
+        },
+        "Name": "ToDoJwtAuthorizer"
       }
     },
     "HelloLambdaPermissionHttpApi": {
@@ -418,6 +437,10 @@
               }
             ]
           ]
+        },
+        "AuthorizationType": "JWT",
+        "AuthorizerId": {
+          "Ref": "HttpApiAuthorizerToDoJwtAuthorizer"
         }
       },
       "DependsOn": "HttpApiIntegrationListToDos"
