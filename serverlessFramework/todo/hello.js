@@ -5,7 +5,7 @@ exports.handler = async (event) => {
     statusCode: 200,
     body: JSON.stringify(
       {
-        message: 'Go 2 Serverless v1.0! Your function executed successfully!',
+        message: 'TEST Go 2 Serverless v1.0! Your function executed successfully!',
         input: event,
       },
       null,

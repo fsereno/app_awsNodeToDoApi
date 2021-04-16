@@ -28,15 +28,16 @@ provider:
           - 60jvm1avgd6t55k4uc15dgu6iq
   environment:
     TODO_TABLE: todo-serverless
-  iamRoleStatements:
-    - Effect: "Allow"
-      Action:
-        - "dynamodb:*"
-      Resource:
-        Fn::GetAtt:
-          - ToDoTable
-          - Arn
-
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "dynamodb:*"
+          Resource:
+            Fn::GetAtt:
+              - ToDoTable
+              - Arn
 functions:
   hello:
     handler: todo/hello.handler

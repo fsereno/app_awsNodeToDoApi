@@ -37,20 +37,24 @@
       "environment": {
         "TODO_TABLE": "todo-serverless"
       },
-      "iamRoleStatements": [
-        {
-          "Effect": "Allow",
-          "Action": [
-            "dynamodb:*"
-          ],
-          "Resource": {
-            "Fn::GetAtt": [
-              "ToDoTable",
-              "Arn"
-            ]
-          }
+      "iam": {
+        "role": {
+          "statements": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "dynamodb:*"
+              ],
+              "Resource": {
+                "Fn::GetAtt": [
+                  "ToDoTable",
+                  "Arn"
+                ]
+              }
+            }
+          ]
         }
-      ],
+      },
       "stage": "dev",
       "variableSyntax": "\\${([^{}:]+?(?:\\(|:)(?:[^:{}][^{}]*?)?)}",
       "versionFunctions": true,
@@ -221,7 +225,7 @@
                         ]
                       },
                       {
-                        "$ref": "$[\"service\"][\"provider\"][\"iamRoleStatements\"][0]"
+                        "$ref": "$[\"service\"][\"provider\"][\"iam\"][\"role\"][\"statements\"][0]"
                       }
                     ]
                   }
@@ -250,7 +254,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/todoserverlessframework/dev/1618611681700-2021-04-16T22:21:21.700Z/todoserverlessframework.zip"
+                "S3Key": "serverless/todoserverlessframework/dev/1618612825276-2021-04-16T22:40:25.276Z/todoserverlessframework.zip"
               },
               "Handler": "todo/hello.handler",
               "Runtime": "nodejs12.x",
@@ -280,7 +284,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/todoserverlessframework/dev/1618611681700-2021-04-16T22:21:21.700Z/todoserverlessframework.zip"
+                "S3Key": "serverless/todoserverlessframework/dev/1618612825276-2021-04-16T22:40:25.276Z/todoserverlessframework.zip"
               },
               "Handler": "todo/listToDos.handler",
               "Runtime": "nodejs12.x",
@@ -310,7 +314,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/todoserverlessframework/dev/1618611681700-2021-04-16T22:21:21.700Z/todoserverlessframework.zip"
+                "S3Key": "serverless/todoserverlessframework/dev/1618612825276-2021-04-16T22:40:25.276Z/todoserverlessframework.zip"
               },
               "Handler": "todo/getToDo.handler",
               "Runtime": "nodejs12.x",
@@ -340,7 +344,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/todoserverlessframework/dev/1618611681700-2021-04-16T22:21:21.700Z/todoserverlessframework.zip"
+                "S3Key": "serverless/todoserverlessframework/dev/1618612825276-2021-04-16T22:40:25.276Z/todoserverlessframework.zip"
               },
               "Handler": "todo/createToDo.handler",
               "Runtime": "nodejs12.x",
@@ -370,7 +374,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/todoserverlessframework/dev/1618611681700-2021-04-16T22:21:21.700Z/todoserverlessframework.zip"
+                "S3Key": "serverless/todoserverlessframework/dev/1618612825276-2021-04-16T22:40:25.276Z/todoserverlessframework.zip"
               },
               "Handler": "todo/deleteToDo.handler",
               "Runtime": "nodejs12.x",
@@ -400,7 +404,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/todoserverlessframework/dev/1618611681700-2021-04-16T22:21:21.700Z/todoserverlessframework.zip"
+                "S3Key": "serverless/todoserverlessframework/dev/1618612825276-2021-04-16T22:40:25.276Z/todoserverlessframework.zip"
               },
               "Handler": "todo/updateToDo.handler",
               "Runtime": "nodejs12.x",
@@ -423,64 +427,64 @@
               "UpdateToDoLogGroup"
             ]
           },
-          "HelloLambdaVersionNnpazsMUDWnR3IyRyTPPdJNsPdplui6enqk8N3auRU": {
+          "HelloLambdaVersionECBOMD2BiGljNjuew8ADKL0dTNofpYM2k2M4AILFldQ": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "HelloLambdaFunction"
               },
-              "CodeSha256": "/orB+NlL+lreOPUU3a0jIYHF3DDVjumsAr8rJUyZqN8="
+              "CodeSha256": "CKxTmU4VAtELpzGn9fleKoKOM5XjxL7/NZr7ZLhygKM="
             }
           },
-          "ListToDosLambdaVersionzjpYHc76p7r65xzOI29MQPRLkt2FhOvPYszBSfY7g": {
+          "ListToDosLambdaVersionuaXUTKPLtEWclQS7IDwPOMRk6zr8CMSJM41Q3C9kHok": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "ListToDosLambdaFunction"
               },
-              "CodeSha256": "/orB+NlL+lreOPUU3a0jIYHF3DDVjumsAr8rJUyZqN8="
+              "CodeSha256": "CKxTmU4VAtELpzGn9fleKoKOM5XjxL7/NZr7ZLhygKM="
             }
           },
-          "GetToDoLambdaVersion9poQR4h5RbTCicQvhnmDKLwbuatcrmnUkaRfNebx8I": {
+          "GetToDoLambdaVersion5EEMsh9BRK6WgICL3UzHrM3QHrKoYIuUsIYehUjhwBI": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "GetToDoLambdaFunction"
               },
-              "CodeSha256": "/orB+NlL+lreOPUU3a0jIYHF3DDVjumsAr8rJUyZqN8="
+              "CodeSha256": "CKxTmU4VAtELpzGn9fleKoKOM5XjxL7/NZr7ZLhygKM="
             }
           },
-          "CreateToDoLambdaVersionyPIdkk43x6UcrtmisWjzld8Mr8W2pqihe0x2nQPhm0": {
+          "CreateToDoLambdaVersionvccXHYxCxQYRHkMmFZl07CyknVrnfuPnqwvQcRkg": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "CreateToDoLambdaFunction"
               },
-              "CodeSha256": "/orB+NlL+lreOPUU3a0jIYHF3DDVjumsAr8rJUyZqN8="
+              "CodeSha256": "CKxTmU4VAtELpzGn9fleKoKOM5XjxL7/NZr7ZLhygKM="
             }
           },
-          "DeleteToDoLambdaVersionGDy4FEv07FDMANutzwVx5s1hYvbDJ9Gn8QcMgl1U": {
+          "DeleteToDoLambdaVersionOJ68BbWifkA5dM6t3PGEpGFXhBHwYJPj8xQwdOjxl4": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "DeleteToDoLambdaFunction"
               },
-              "CodeSha256": "/orB+NlL+lreOPUU3a0jIYHF3DDVjumsAr8rJUyZqN8="
+              "CodeSha256": "CKxTmU4VAtELpzGn9fleKoKOM5XjxL7/NZr7ZLhygKM="
             }
           },
-          "UpdateToDoLambdaVersionXD64jY9xEGAvJXo8aECpeY2NrfseEyV9YTPHNe1WJE0": {
+          "UpdateToDoLambdaVersionAr3Ha1xTUl2Z4wtbchtOxv48S6luNVq3EmgI13gPzcw": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "UpdateToDoLambdaFunction"
               },
-              "CodeSha256": "/orB+NlL+lreOPUU3a0jIYHF3DDVjumsAr8rJUyZqN8="
+              "CodeSha256": "CKxTmU4VAtELpzGn9fleKoKOM5XjxL7/NZr7ZLhygKM="
             }
           },
           "HttpApi": {
@@ -1022,37 +1026,37 @@
           "HelloLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "HelloLambdaVersionNnpazsMUDWnR3IyRyTPPdJNsPdplui6enqk8N3auRU"
+              "Ref": "HelloLambdaVersionECBOMD2BiGljNjuew8ADKL0dTNofpYM2k2M4AILFldQ"
             }
           },
           "ListToDosLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ListToDosLambdaVersionzjpYHc76p7r65xzOI29MQPRLkt2FhOvPYszBSfY7g"
+              "Ref": "ListToDosLambdaVersionuaXUTKPLtEWclQS7IDwPOMRk6zr8CMSJM41Q3C9kHok"
             }
           },
           "GetToDoLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "GetToDoLambdaVersion9poQR4h5RbTCicQvhnmDKLwbuatcrmnUkaRfNebx8I"
+              "Ref": "GetToDoLambdaVersion5EEMsh9BRK6WgICL3UzHrM3QHrKoYIuUsIYehUjhwBI"
             }
           },
           "CreateToDoLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "CreateToDoLambdaVersionyPIdkk43x6UcrtmisWjzld8Mr8W2pqihe0x2nQPhm0"
+              "Ref": "CreateToDoLambdaVersionvccXHYxCxQYRHkMmFZl07CyknVrnfuPnqwvQcRkg"
             }
           },
           "DeleteToDoLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "DeleteToDoLambdaVersionGDy4FEv07FDMANutzwVx5s1hYvbDJ9Gn8QcMgl1U"
+              "Ref": "DeleteToDoLambdaVersionOJ68BbWifkA5dM6t3PGEpGFXhBHwYJPj8xQwdOjxl4"
             }
           },
           "UpdateToDoLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "UpdateToDoLambdaVersionXD64jY9xEGAvJXo8aECpeY2NrfseEyV9YTPHNe1WJE0"
+              "Ref": "UpdateToDoLambdaVersionAr3Ha1xTUl2Z4wtbchtOxv48S6luNVq3EmgI13gPzcw"
             }
           },
           "HttpApiId": {
@@ -1189,7 +1193,7 @@
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "HelloLambdaVersionNnpazsMUDWnR3IyRyTPPdJNsPdplui6enqk8N3auRU"
+        "versionLogicalId": "HelloLambdaVersionECBOMD2BiGljNjuew8ADKL0dTNofpYM2k2M4AILFldQ"
       },
       "listToDos": {
         "handler": "todo/listToDos.handler",
@@ -1212,7 +1216,7 @@
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "ListToDosLambdaVersionzjpYHc76p7r65xzOI29MQPRLkt2FhOvPYszBSfY7g"
+        "versionLogicalId": "ListToDosLambdaVersionuaXUTKPLtEWclQS7IDwPOMRk6zr8CMSJM41Q3C9kHok"
       },
       "getToDo": {
         "handler": "todo/getToDo.handler",
@@ -1235,7 +1239,7 @@
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "GetToDoLambdaVersion9poQR4h5RbTCicQvhnmDKLwbuatcrmnUkaRfNebx8I"
+        "versionLogicalId": "GetToDoLambdaVersion5EEMsh9BRK6WgICL3UzHrM3QHrKoYIuUsIYehUjhwBI"
       },
       "createToDo": {
         "handler": "todo/createToDo.handler",
@@ -1258,7 +1262,7 @@
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "CreateToDoLambdaVersionyPIdkk43x6UcrtmisWjzld8Mr8W2pqihe0x2nQPhm0"
+        "versionLogicalId": "CreateToDoLambdaVersionvccXHYxCxQYRHkMmFZl07CyknVrnfuPnqwvQcRkg"
       },
       "deleteToDo": {
         "handler": "todo/deleteToDo.handler",
@@ -1281,7 +1285,7 @@
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "DeleteToDoLambdaVersionGDy4FEv07FDMANutzwVx5s1hYvbDJ9Gn8QcMgl1U"
+        "versionLogicalId": "DeleteToDoLambdaVersionOJ68BbWifkA5dM6t3PGEpGFXhBHwYJPj8xQwdOjxl4"
       },
       "updateToDo": {
         "handler": "todo/updateToDo.handler",
@@ -1304,7 +1308,7 @@
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "UpdateToDoLambdaVersionXD64jY9xEGAvJXo8aECpeY2NrfseEyV9YTPHNe1WJE0"
+        "versionLogicalId": "UpdateToDoLambdaVersionAr3Ha1xTUl2Z4wtbchtOxv48S6luNVq3EmgI13gPzcw"
       }
     },
     "resources": {
@@ -1357,7 +1361,7 @@
     "artifact": "/Users/fabiosereno/sites/portfolio.aws.lambda/app_awsNodeToDoApi/serverlessFramework/.serverless/todoserverlessframework.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/todoserverlessframework/dev/1618611681700-2021-04-16T22:21:21.700Z",
+    "artifactDirectoryName": "serverless/todoserverlessframework/dev/1618612825276-2021-04-16T22:40:25.276Z",
     "artifact": "todoserverlessframework.zip"
   }
 }
