@@ -1,11 +1,13 @@
 'use strict';
 
+const hasNoId = require("./hasNoId");
+
 exports.handler = async (event) => {
   return {
     statusCode: 200,
     body: JSON.stringify(
       {
-        message: 'TEST 3',
+        message: 'TEST ' + hasNoId.handler({}),
         input: event,
       },
       null,
