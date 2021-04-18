@@ -3,16 +3,14 @@
 const AWS = require("aws-sdk");
 const dynamo = new AWS.DynamoDB.DocumentClient();
 const hasNoId = require("./hasNoId");
+const generateId = require("./generateId");
 
 exports.handler = async (event) => {
 
     const item = JSON.parse(event.body);
 
     if (hasNoId(item)) {
-
-        const id =  Math.random() * Math.pow(10,16);
-
-        item.id = id.toString();
+        item.id = generateId()
     }
 
     let params = {
