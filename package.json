@@ -1,0 +1,25 @@
+{
+  "name": "app_awsnodetodoapi",
+  "version": "1.0.0",
+  "description": "A Node JS, AWS To Do API Application.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fsereno/app_awsNodeToDoApi.git"
+  },
+  "author": "Fabio Sereno",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fsereno/app_awsNodeToDoApi/issues"
+  },
+  "homepage": "https://github.com/fsereno/app_awsNodeToDoApi#readme",
+  "devDependencies": {
+    "mocha": "^8.3.2"
+  }
+}
