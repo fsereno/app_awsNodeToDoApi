@@ -7,7 +7,7 @@ exports.handler = async (event) => {
     statusCode: 200,
     body: JSON.stringify(
       {
-        message: 'TEST ' + hasNoId.handler({}),
+        message: 'TEST ' + hasNoId({}),
         input: event,
       },
       null,

@@ -28,6 +28,7 @@ provider:
           - 60jvm1avgd6t55k4uc15dgu6iq
   environment:
     TODO_TABLE: todo-serverless
+    G_RECAPTCHA_SECRET: 6LcP6b0aAAAAACUDJYgZEbD6CYUzmoG1GvJIBz8y
   iam:
     role:
       statements:
@@ -45,6 +46,14 @@ functions:
       - httpApi:
           path: /hello
           method: get
+  grecaptchaVerify:
+    handler: todo/grecaptchaVerify.handler
+    events:
+      - httpApi:
+          path: /verify
+          method: post
+          authorizer:
+            name: ToDoJwtAuthorizer
   listToDos:
     handler: todo/listToDos.handler
     events:
