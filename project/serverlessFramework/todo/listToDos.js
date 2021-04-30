@@ -7,7 +7,7 @@ exports.handler = async (event) => {
 
     const username = event.requestContext.authorizer.jwt.claims['cognito:username'];
 
-    let params = {
+    const params = {
         TableName : process.env.TODO_TABLE,
         FilterExpression : 'username = :username',
         ExpressionAttributeValues : {':username' : username}

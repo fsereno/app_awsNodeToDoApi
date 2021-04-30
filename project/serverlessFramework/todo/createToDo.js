@@ -1,20 +1,20 @@
 'use strict';
 
-const AWS = require("aws-sdk");
+const AWS = require('aws-sdk');
 const dynamo = new AWS.DynamoDB.DocumentClient();
-const hasNoId = require("./hasNoId");
-const generateId = require("./generateId");
+const hasNoId = require('./hasNoId');
+const generateId = require('./generateId');
 
 exports.handler = async (event) => {
 
     const item = JSON.parse(event.body);
 
     if (hasNoId(item)) {
-        item.id = generateId()
+        item.id = generateId();
     }
 
-    let params = {
-        TableName : process.env.TODO_TABLE,
+    const params = {
+        TableName: process.env.TODO_TABLE,
         Item: item
     };
 
@@ -23,12 +23,12 @@ exports.handler = async (event) => {
     const statusCode = 200;
 
     const headers = {
-        "Access-Control-Allow-Origin": "*"
+        'Access-Control-Allow-Origin': '*'
     }
 
     const response = {
         statusCode,
-        body:"",
+        body: '',
         headers
     };
     return response;

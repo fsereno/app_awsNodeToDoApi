@@ -1,24 +1,65 @@
 'use strict';
 
+const axios = require('axios');
+
 exports.handler = async (event) => {
 
-    //https://www.google.com/recaptcha/api/siteverify?secret=6LcP6b0aAAAAACUDJYgZEbD6CYUzmoG1GvJIBz8y&response=03AGdBq25lqtD7NvnN--YP9GdkU-Y00xUwXVPt4XYlBt91JLS6gVtaPCkq5ZmOVlStp6in2_y5Ca-vwkt-EfjdAHa8GmQhA-Fa2rl4AvIKj2yHAMwzWxjg65CDvdjbLLrlYQyexQ9_B0jG8c07Fl3SsGnAOCwSMYxKzjBt_syfAjnXUjWlIpoTCexJZfoskxXE89fJntS4DLyVztxp36Kqk6sC7j8jO2wpN8UAWpqUoHLlvpJfLe1wp7A3pnQMD3f7C7Fm1AWdrJOmLbXdOOkBSAaz-kMXSaf6rXHzLBMHa9JlMUZKu0J_bNVAOwx6CXqi9wRVzpe_heDR0MrFPd10tjqq-FA7oZ0eTlIH7sTdrOZFld1nr5gPzr8lFJpGkvqS0zncXb-Ye9hpQhd3Ede9m6hFClOCW5zoL_Leo224uhxlgvB_2jXanyeRSypMNawt8aasVGySoVnc
+    let eventBody;
+    let requestBody;
+    let parseError = false;
+    let body = {};
+    let statusCode = 200;
 
-    const token = event.body.token;
-    const secret = process.env.G_RECAPTCHA_SECRET;
+    if (event.body) {
 
-    const statusCode = 200;
+        if (event.isBase64Encoded) {
+            const buff = Buffer.from(event.body, 'base64');
+            eventBody = buff.toString('utf-8');
+        } else {
+            eventBody = event.body;
+        }
 
-    const body = JSON.stringify({ token, secret });
+    }
+
+    if (eventBody) {
+        try {
+
+            requestBody = JSON.parse(eventBody);
+
+        } catch (error) {
+            parseError = true;
+            console.error(error.message);
+        }
+    }
+
+    const token = requestBody && requestBody.token ? requestBody.token : undefined;
+
+    if (!parseError && token) {
+
+        const secret = process.env.G_RECAPTCHA_SECRET;
+        const url = `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${token}`;
+
+        const result = await axios.post(url);
+
+        if (result.status !== statusCode) {
+            statusCode = result.status;
+        }
+
+        body = { result: result.data };
+
+    }
 
     const headers = {
         "Access-Control-Allow-Origin": "*"
     }
+
+    body = JSON.stringify(body);
 
     const response = {
         statusCode,
         body,
         headers
     };
+
     return response;
 };

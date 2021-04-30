@@ -7,7 +7,7 @@ exports.handler = async (event) => {
 
     const body = JSON.parse(event.body);
 
-    let params = {
+    const params = {
         TableName : process.env.TODO_TABLE,
         Item: body
     };

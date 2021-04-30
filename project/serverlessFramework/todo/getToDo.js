@@ -7,7 +7,7 @@ exports.handler = async (event) => {
 
     const id = event.pathParameters.id;
 
-    let params = {
+    const params = {
         TableName : process.env.TODO_TABLE,
         Key: { id }
     };

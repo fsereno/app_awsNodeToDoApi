@@ -52,8 +52,6 @@ functions:
       - httpApi:
           path: /verify
           method: post
-          authorizer:
-            name: ToDoJwtAuthorizer
   listToDos:
     handler: todo/listToDos.handler
     events:
