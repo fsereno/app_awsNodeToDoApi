@@ -36,7 +36,7 @@ exports.handler = async (event) => {
 
     if (!parseError && token) {
 
-        const secret = process.env.G_RECAPTCHA_SECRET;
+        const secret = process.env.G_RECAPTCHA_SECRET_V2;
         const url = `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${token}`;
 
         const result = await axios.post(url);
