@@ -1,43 +1,28 @@
 'use strict';
 
 const axios = require('axios');
+const getEventBody = require("./getEventBody");
+const parseEventBody = require("./parseEventBody");
+const getToken = require("./getToken");
 
 exports.handler = async (event) => {
 
-    let eventBody;
-    let requestBody;
-    let parseError = false;
     let body = {};
     let statusCode = 200;
 
-    if (event.body) {
+    const eventBody = getEventBody(event.body, event.isBase64Encoded);
 
-        if (event.isBase64Encoded) {
-            const buff = Buffer.from(event.body, 'base64');
-            eventBody = buff.toString('utf-8');
-        } else {
-            eventBody = event.body;
-        }
+    const [
+        parseError,
+        requestBody
+    ] = parseEventBody(eventBody);
 
-    }
+    const token = getToken(parseError, requestBody.token);
 
-    if (eventBody) {
-        try {
-
-            requestBody = JSON.parse(eventBody);
-
-        } catch (error) {
-            parseError = true;
-            console.error(error.message);
-        }
-    }
-
-    const token = requestBody && requestBody.token ? requestBody.token : undefined;
-
-    if (!parseError && token) {
+    if (token) {
 
         const secret = process.env.G_RECAPTCHA_SECRET_V2;
-        const url = `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${token}`;
+        const url = `${process.env.G_RECAPTCHA_ENDPOINT}?secret=${secret}&response=${token}`;
 
         const result = await axios.post(url);
 

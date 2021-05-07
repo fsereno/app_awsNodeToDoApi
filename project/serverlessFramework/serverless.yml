@@ -28,6 +28,7 @@ provider:
           - 60jvm1avgd6t55k4uc15dgu6iq
   environment:
     TODO_TABLE: todo-serverless
+    G_RECAPTCHA_ENDPOINT: https://www.google.com/recaptcha/api/siteverify
     G_RECAPTCHA_SECRET_V2: 6LdFJsIaAAAAANksLu53O6eqJsUpjggm22Mg9pX5
     G_RECAPTCHA_SECRET_V3: 6LcP6b0aAAAAACUDJYgZEbD6CYUzmoG1GvJIBz8y
   iam:
