@@ -12,9 +12,19 @@ exports.handler = async (event) => {
         Key: { id }
     };
 
-    await dynamo.delete(params).promise();
+    let statusCode = 200;
+    let body = "";
 
-    const statusCode = 200;
+    try {
+
+        await dynamo.delete(params).promise();
+
+    } catch (error) {
+
+        statusCode = 500;
+        body = JSON.stringify(error);
+
+    }
 
     const headers = {
         "Access-Control-Allow-Origin": "*"
@@ -22,8 +32,9 @@ exports.handler = async (event) => {
 
     const response = {
         statusCode,
-        body:"",
+        body,
         headers
     };
+
     return response;
 };
