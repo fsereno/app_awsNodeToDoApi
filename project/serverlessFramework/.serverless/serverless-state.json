@@ -134,12 +134,6 @@
               }
             }
           },
-          "HelloLogGroup": {
-            "Type": "AWS::Logs::LogGroup",
-            "Properties": {
-              "LogGroupName": "/aws/lambda/todoserverlessframework-dev-hello"
-            }
-          },
           "GrecaptchaVerifyLogGroup": {
             "Type": "AWS::Logs::LogGroup",
             "Properties": {
@@ -256,39 +250,6 @@
               }
             }
           },
-          "HelloLambdaFunction": {
-            "Type": "AWS::Lambda::Function",
-            "Properties": {
-              "Code": {
-                "S3Bucket": {
-                  "Ref": "ServerlessDeploymentBucket"
-                },
-                "S3Key": "serverless/todoserverlessframework/dev/1623536924153-2021-06-12T22:28:44.153Z/todoserverlessframework.zip"
-              },
-              "Handler": "todo/hello.handler",
-              "Runtime": "nodejs12.x",
-              "FunctionName": "todoserverlessframework-dev-hello",
-              "MemorySize": 1024,
-              "Timeout": 6,
-              "Environment": {
-                "Variables": {
-                  "TODO_TABLE": "todo-serverless",
-                  "G_RECAPTCHA_ENDPOINT": "https://www.google.com/recaptcha/api/siteverify",
-                  "G_RECAPTCHA_SECRET_V2": "6LdFJsIaAAAAANksLu53O6eqJsUpjggm22Mg9pX5",
-                  "G_RECAPTCHA_SECRET_V3": "6LcP6b0aAAAAACUDJYgZEbD6CYUzmoG1GvJIBz8y"
-                }
-              },
-              "Role": {
-                "Fn::GetAtt": [
-                  "IamRoleLambdaExecution",
-                  "Arn"
-                ]
-              }
-            },
-            "DependsOn": [
-              "HelloLogGroup"
-            ]
-          },
           "GrecaptchaVerifyLambdaFunction": {
             "Type": "AWS::Lambda::Function",
             "Properties": {
@@ -296,7 +257,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/todoserverlessframework/dev/1623536924153-2021-06-12T22:28:44.153Z/todoserverlessframework.zip"
+                "S3Key": "serverless/todoserverlessframework/dev/1623537401743-2021-06-12T22:36:41.743Z/todoserverlessframework.zip"
               },
               "Handler": "todo/grecaptchaVerify.handler",
               "Runtime": "nodejs12.x",
@@ -329,7 +290,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/todoserverlessframework/dev/1623536924153-2021-06-12T22:28:44.153Z/todoserverlessframework.zip"
+                "S3Key": "serverless/todoserverlessframework/dev/1623537401743-2021-06-12T22:36:41.743Z/todoserverlessframework.zip"
               },
               "Handler": "todo/listToDos.handler",
               "Runtime": "nodejs12.x",
@@ -362,7 +323,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/todoserverlessframework/dev/1623536924153-2021-06-12T22:28:44.153Z/todoserverlessframework.zip"
+                "S3Key": "serverless/todoserverlessframework/dev/1623537401743-2021-06-12T22:36:41.743Z/todoserverlessframework.zip"
               },
               "Handler": "todo/getToDo.handler",
               "Runtime": "nodejs12.x",
@@ -395,7 +356,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/todoserverlessframework/dev/1623536924153-2021-06-12T22:28:44.153Z/todoserverlessframework.zip"
+                "S3Key": "serverless/todoserverlessframework/dev/1623537401743-2021-06-12T22:36:41.743Z/todoserverlessframework.zip"
               },
               "Handler": "todo/createToDo.handler",
               "Runtime": "nodejs12.x",
@@ -428,7 +389,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/todoserverlessframework/dev/1623536924153-2021-06-12T22:28:44.153Z/todoserverlessframework.zip"
+                "S3Key": "serverless/todoserverlessframework/dev/1623537401743-2021-06-12T22:36:41.743Z/todoserverlessframework.zip"
               },
               "Handler": "todo/deleteToDo.handler",
               "Runtime": "nodejs12.x",
@@ -461,7 +422,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/todoserverlessframework/dev/1623536924153-2021-06-12T22:28:44.153Z/todoserverlessframework.zip"
+                "S3Key": "serverless/todoserverlessframework/dev/1623537401743-2021-06-12T22:36:41.743Z/todoserverlessframework.zip"
               },
               "Handler": "todo/updateToDo.handler",
               "Runtime": "nodejs12.x",
@@ -486,16 +447,6 @@
             "DependsOn": [
               "UpdateToDoLogGroup"
             ]
-          },
-          "HelloLambdaVersion18UccUHeZqnic2hbIdMEmgmGYfquTAsmc2gQqFOIVg": {
-            "Type": "AWS::Lambda::Version",
-            "DeletionPolicy": "Retain",
-            "Properties": {
-              "FunctionName": {
-                "Ref": "HelloLambdaFunction"
-              },
-              "CodeSha256": "jZ6l6FyOJ+0ecEbbImneDfWNo8Ff1gRPlTgzVYSKfAc="
-            }
           },
           "GrecaptchaVerifyLambdaVersionLy7zXB0NrWUiy9TagJ7Xt1QZ1dZvfu8SgseltGHg": {
             "Type": "AWS::Lambda::Version",
@@ -610,78 +561,6 @@
               },
               "Name": "ToDoJwtAuthorizer"
             }
-          },
-          "HelloLambdaPermissionHttpApi": {
-            "Type": "AWS::Lambda::Permission",
-            "Properties": {
-              "FunctionName": {
-                "Fn::GetAtt": [
-                  "HelloLambdaFunction",
-                  "Arn"
-                ]
-              },
-              "Action": "lambda:InvokeFunction",
-              "Principal": "apigateway.amazonaws.com",
-              "SourceArn": {
-                "Fn::Join": [
-                  "",
-                  [
-                    "arn:",
-                    {
-                      "Ref": "AWS::Partition"
-                    },
-                    ":execute-api:",
-                    {
-                      "Ref": "AWS::Region"
-                    },
-                    ":",
-                    {
-                      "Ref": "AWS::AccountId"
-                    },
-                    ":",
-                    {
-                      "Ref": "HttpApi"
-                    },
-                    "/*"
-                  ]
-                ]
-              }
-            }
-          },
-          "HttpApiIntegrationHello": {
-            "Type": "AWS::ApiGatewayV2::Integration",
-            "Properties": {
-              "ApiId": {
-                "Ref": "HttpApi"
-              },
-              "IntegrationType": "AWS_PROXY",
-              "IntegrationUri": {
-                "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"HelloLambdaPermissionHttpApi\"][\"Properties\"][\"FunctionName\"]"
-              },
-              "PayloadFormatVersion": "2.0",
-              "TimeoutInMillis": 6500
-            }
-          },
-          "HttpApiRouteGetHello": {
-            "Type": "AWS::ApiGatewayV2::Route",
-            "Properties": {
-              "ApiId": {
-                "Ref": "HttpApi"
-              },
-              "RouteKey": "GET /hello",
-              "Target": {
-                "Fn::Join": [
-                  "/",
-                  [
-                    "integrations",
-                    {
-                      "Ref": "HttpApiIntegrationHello"
-                    }
-                  ]
-                ]
-              }
-            },
-            "DependsOn": "HttpApiIntegrationHello"
           },
           "GrecaptchaVerifyLambdaPermissionHttpApi": {
             "Type": "AWS::Lambda::Permission",
@@ -1165,12 +1044,6 @@
               "Ref": "ServerlessDeploymentBucket"
             }
           },
-          "HelloLambdaFunctionQualifiedArn": {
-            "Description": "Current Lambda function version",
-            "Value": {
-              "Ref": "HelloLambdaVersion18UccUHeZqnic2hbIdMEmgmGYfquTAsmc2gQqFOIVg"
-            }
-          },
           "GrecaptchaVerifyLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
@@ -1323,26 +1196,6 @@
     },
     "pluginsData": {},
     "functions": {
-      "hello": {
-        "handler": "todo/hello.handler",
-        "events": [
-          {
-            "httpApi": {
-              "path": "/hello",
-              "method": "get"
-            },
-            "resolvedMethod": "GET",
-            "resolvedPath": "/hello"
-          }
-        ],
-        "name": "todoserverlessframework-dev-hello",
-        "package": {},
-        "memory": 1024,
-        "timeout": 6,
-        "runtime": "nodejs12.x",
-        "vpc": {},
-        "versionLogicalId": "HelloLambdaVersion18UccUHeZqnic2hbIdMEmgmGYfquTAsmc2gQqFOIVg"
-      },
       "grecaptchaVerify": {
         "handler": "todo/grecaptchaVerify.handler",
         "events": [
@@ -1529,7 +1382,7 @@
     "artifact": "/Users/fabiosereno/sites/portfolio.aws.lambda/app_awsNodeToDoApi/project/serverlessFramework/.serverless/todoserverlessframework.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/todoserverlessframework/dev/1623536924153-2021-06-12T22:28:44.153Z",
+    "artifactDirectoryName": "serverless/todoserverlessframework/dev/1623537401743-2021-06-12T22:36:41.743Z",
     "artifact": "todoserverlessframework.zip"
   }
 }

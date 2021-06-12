@@ -42,12 +42,6 @@ provider:
               - ToDoTable
               - Arn
 functions:
-  hello:
-    handler: todo/hello.handler
-    events:
-      - httpApi:
-          path: /hello
-          method: get
   grecaptchaVerify:
     handler: todo/grecaptchaVerify.handler
     events:
