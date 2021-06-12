@@ -14,12 +14,11 @@ exports.handler = async (event) => {
     };
 
     let statusCode = 200;
-    let result = "";
     let body = "";
 
     try {
 
-        result = await dynamo.scan(params).promise();
+        const result = await dynamo.scan(params).promise();
         body = JSON.stringify(result.Items);
 
     } catch (error) {

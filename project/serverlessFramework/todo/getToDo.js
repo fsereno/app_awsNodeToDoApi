@@ -12,11 +12,20 @@ exports.handler = async (event) => {
         Key: { id }
     };
 
-    const result = await dynamo.get(params).promise();
+    let statusCode = 200;
+    let body = "";
 
-    const statusCode = 200;
+    try {
 
-    const body = JSON.stringify(result.Item);
+        const result = await dynamo.get(params).promise();
+        body = JSON.stringify(result.Item);
+
+    } catch (error) {
+
+        statusCode = 500;
+        body = JSON.stringify(error);
+
+    }
 
     const headers = {
         "Access-Control-Allow-Origin": "*"
@@ -27,5 +36,6 @@ exports.handler = async (event) => {
         body,
         headers
     };
+
     return response;
 };
