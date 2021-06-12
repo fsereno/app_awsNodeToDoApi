@@ -13,11 +13,21 @@ exports.handler = async (event) => {
         ExpressionAttributeValues : {':username' : username}
     };
 
-    const result = await dynamo.scan(params).promise();
+    let statusCode = 200;
+    let result = "";
+    let body = "";
 
-    const statusCode = 200;
+    try {
 
-    const body = JSON.stringify(result.Items);
+        result = await dynamo.scan(params).promise();
+        body = JSON.stringify(result.Items);
+
+    } catch (error) {
+
+        statusCode = 500;
+        body = JSON.stringify(error);
+
+    }
 
     const headers = {
         "Access-Control-Allow-Origin": "*"
@@ -28,5 +38,6 @@ exports.handler = async (event) => {
         body,
         headers
     };
+
     return response;
 };
