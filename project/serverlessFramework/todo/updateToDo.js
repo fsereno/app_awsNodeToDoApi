@@ -5,16 +5,26 @@ const dynamo = new AWS.DynamoDB.DocumentClient();
 
 exports.handler = async (event) => {
 
-    const body = JSON.parse(event.body);
+    const item = JSON.parse(event.body);
 
     const params = {
         TableName : process.env.TODO_TABLE,
-        Item: body
+        Item: item
     };
 
-    await dynamo.put(params).promise();
+    let statusCode = 200;
+    let body = "";
 
-    const statusCode = 200;
+    try {
+
+        await dynamo.put(params).promise();
+
+    } catch (error) {
+
+        statusCode = 500;
+        body = JSON.stringify(error);
+
+    }
 
     const headers = {
         "Access-Control-Allow-Origin": "*"
@@ -22,8 +32,9 @@ exports.handler = async (event) => {
 
     const response = {
         statusCode,
-        body:"",
+        body,
         headers
     };
+
     return response;
 };
